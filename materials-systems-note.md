@@ -1,12 +1,10 @@
-# Materials and Precision Systems
+# Precision Systems Constraints
 
-Formative work in borosilicate flameworking, scientific glass, lost-wax casting, and related precision materials practice shapes the approach taken in this repository.
-
-Physical systems of that class enforce several non-negotiable constraints:
+Engineering work under hard physical constraints enforces standards that transfer cleanly to multi-agent software:
 
 - Tolerances are real  
 - Process history affects final behavior  
 - “Close enough” is usually a failure mode  
 - Documentation and repeatability are operational requirements  
 
-The hierarchical architectures, zero-trust handoffs, and recursive update loops documented here apply the same discipline to software systems that must operate under uncertainty and incomplete information.
+The hierarchical architectures, zero-trust handoffs, and recursive update loops in this repository apply the same discipline to systems that operate under uncertainty and incomplete information.

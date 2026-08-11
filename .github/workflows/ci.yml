@@ -28,7 +28,7 @@ jobs:
             tools/glass-x/app
           echo "compileall: ok"
 
-      - name: Validate handoff schema (stdlib)
+      - name: Validate handoff schema
         run: |
           python - <<'PY'
           import json
@@ -39,6 +39,21 @@ jobs:
           for key in ("payload", "provenance", "confidence", "dissent", "sources", "verification_hooks"):
               assert key in required, key
           print("handoff.schema.json: ok")
+          PY
+
+      - name: Validate example handoff keys
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          required = {
+              "payload", "provenance", "confidence",
+              "dissent", "sources", "verification_hooks",
+          }
+          example = json.loads(Path("examples/zero_trust_handoff_package.json").read_text())
+          missing = required - set(example)
+          assert not missing, missing
+          print("examples/zero_trust_handoff_package.json: ok")
           PY
 
       - name: Smoke-run illustrative pipeline

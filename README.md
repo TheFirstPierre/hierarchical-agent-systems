@@ -39,12 +39,12 @@ extractors/
 
 pipelines/
   python/                                Ingestion + recursive learner + risk model
-  methodology.md / data-ingestion-...
 
 tools/
   glass-x/                               Local X composition + virality matrix (code)
 
-materials-systems-note.md                Precision systems transfer
+examples/                                Sample outputs for docs and CI
+materials-systems-note.md                Precision-systems constraints
 ```
 
 ---
@@ -96,11 +96,9 @@ python run.py
 
 ---
 
----
-
 ## Examples
 
-Sanitized sample outputs live in [`examples/`](examples/):
+Sample outputs in [`examples/`](examples/):
 
 - Quantitative stress prediction JSON
 - Recursive learner status shape
@@ -109,6 +107,8 @@ Sanitized sample outputs live in [`examples/`](examples/):
 
 See [`examples/README.md`](examples/README.md) for regeneration commands.
 
-CI runs `python -m compileall` over packages and smokes the illustrative pipeline on every push to `main`.
+CI on `main` runs `python -m compileall` over packages, validates handoff schema/examples, and smokes the illustrative pipeline.
+
+---
 
 Work is inspectable and intended to be extended.

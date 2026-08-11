@@ -21,9 +21,3 @@ Where signals can be checked against conservation principles, ensemble statistic
 
 **Documentation must be executable**  
 Architecture and protocols are written so a capable implementer can turn them into running systems. Diagrams that cannot be executed have limited value.
-
-## Origins
-
-Significant formation occurred in high-precision physical domains — scientific glass, flameworking, casting, and related materials work. Those environments do not tolerate approximation. Process history, tolerances, and repeatability are non-negotiable. The same standard is applied here to software architecture and verification protocols.
-
-The work in this repository is the practical expression of that standard.
