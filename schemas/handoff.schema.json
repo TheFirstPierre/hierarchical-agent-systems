@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/TheFirstPierre/hierarchical-agent-systems/schemas/handoff.schema.json",
+  "title": "ZeroTrustHandoffPackage",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "payload",
+    "provenance",
+    "confidence",
+    "dissent",
+    "sources",
+    "verification_hooks"
+  ],
+  "properties": {
+    "payload": {
+      "type": "object",
+      "description": "Analytical product: scores, distributions, ranked drivers, narrative analysis, etc."
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["layer", "agent_id", "cycle_id", "protocol_version"],
+      "properties": {
+        "layer": { "type": "integer", "minimum": 1, "maximum": 4 },
+        "agent_id": { "type": "string", "minLength": 1 },
+        "cycle_id": { "type": "string", "minLength": 1 },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "tools": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "protocol_version": { "type": "string", "minLength": 1 }
+      }
+    },
+    "confidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["score", "known_unknowns"],
+      "properties": {
+        "score": { "type": "number", "minimum": 0, "maximum": 10 },
+        "interval": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "known_unknowns": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "sensitivity": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "dissent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["internal", "outliers", "contradictions"],
+      "properties": {
+        "internal": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "outliers": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "contradictions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "sources": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["supporting", "discounted"],
+      "properties": {
+        "supporting": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "tier"],
+            "properties": {
+              "id": { "type": "string" },
+              "tier": {
+                "type": "string",
+                "enum": ["A", "B", "C", "D"]
+              },
+              "notes": { "type": "string" }
+            }
+          }
+        },
+        "discounted": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "reason"],
+            "properties": {
+              "id": { "type": "string" },
+              "reason": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "verification_hooks": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Checks the receiving layer should perform."
+    }
+  }
+}
