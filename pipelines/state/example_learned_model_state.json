@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-06-19T00:26:47.572570",
+  "base_coefficients": {
+    "intercept": 1.8,
+    "beta_unemp": 0.55,
+    "beta_mort_rate": 0.22,
+    "beta_hpa": -0.12
+  },
+  "learned_coefficients": {
+    "intercept": 0.8323,
+    "beta_unemp": -0.8275,
+    "beta_mort_rate": 1.4053,
+    "beta_hpa": -0.5123
+  },
+  "prediction_log": [
+    {
+      "timestamp": "2026-06-19T00:26:40.520376",
+      "period": "Q2_2026_test",
+      "predicted": 5.24,
+      "actual": 4.95,
+      "error": -0.29,
+      "abs_error": 0.29,
+      "inputs": {
+        "unemp": 4.3,
+        "mort_rate": 6.8,
+        "hpa_yoy": 3.5
+      },
+      "scenario": "base",
+      "notes": ""
+    },
+    {
+      "timestamp": "2026-06-19T00:26:46.050266",
+      "period": "Q3_2026_test",
+      "predicted": 5.5,
+      "actual": 5.1,
+      "error": -0.4,
+      "abs_error": 0.4,
+      "inputs": {
+        "unemp": 4.8,
+        "mort_rate": 7.0,
+        "hpa_yoy": 2.8
+      },
+      "scenario": "stress",
+      "notes": ""
+    }
+  ],
+  "performance_metrics": {
+    "total_predictions": 2,
+    "mae": 0.345,
+    "recent_mae_trend": [0.29, 0.4],
+    "improvement_vs_base": null
+  },
+  "learning_notes": []
+}
