@@ -3,42 +3,48 @@
 Austin Jackson  
 [GitHub](https://github.com/TheFirstPierre) · [X](https://x.com/TheFirstPierre)
 
-Layered multi-agent architectures with mandatory verification at boundaries, zero-trust handoffs, social-signal extraction, quantitative recursive pipelines, and precision-systems discipline.
+Layered multi-agent architectures with mandatory verification at boundaries, zero-trust handoffs, social-signal extraction, quantitative recursive pipelines, live telemetry fusion, and controlled self-evolution protocols.
 
 ---
 
 ## Structure
 
 ```
-ARCHITECTURE.md                          System overview + diagrams
-DESIGN_PHILOSOPHY.md                     Governing principles
+ARCHITECTURE.md / DESIGN_PHILOSOPHY.md   System overview + governing principles
 
 architecture/
   hierarchical-swarm.md                  Four-layer agent architecture
-  zero-trust-handoff.md                  Inter-layer contract specification
-  ensemble-probability.md                Core probabilistic formulation
+  zero-trust-handoff.md                  Inter-layer contract
+  ensemble-probability.md                Ensemble formulation
+
+schemas/
+  handoff.schema.json                    Machine-readable handoff contract
 
 x-api/
   social-signal-patterns.md              Collection, extraction, hygiene
 
 agents/
-  narrative-deconstruction-agent.md      Media / narrative analysis protocol
+  narrative-deconstruction-agent.md      Media / narrative protocol
   blueprint-forge.md                     Engineering drawing / GD&T protocol
+  shadow/                                Recursive multi-turn analysis agent (code)
+
+swarms/
+  telemetry/                             Cross-domain telemetry fusion swarm (code)
+
+protocols/
+  sesp/                                  Self-evolving swarm protocol (code)
+
+extractors/
+  echo/                                  Document / page extraction helpers (code)
 
 pipelines/
-  methodology.md                         Predictive model notes
-  data-ingestion-and-learning.md         Pipeline design notes
-  python/
-    data_ingestion_optimizer.py          Large-scale ingestion + summarization
-    recursive_learner.py                 Prediction → outcome → update loop
-    predict_mortgage_default.py          Illustrative risk model
-  state/
-    example_learned_model_state.json     Example persistent state
+  python/                                Ingestion + recursive learner + risk model
+  methodology.md / data-ingestion-...
 
-schemas/
-  handoff.schema.json                    Zero-trust handoff JSON schema
+tools/
+  glass-x/                               Local X composition + virality matrix (code)
 
-materials-systems-note.md                Transfer from physical precision work
+materials-systems-note.md                Precision systems transfer
 ```
 
 ---
@@ -48,30 +54,44 @@ materials-systems-note.md                Transfer from physical precision work
 1. Hierarchy with verification at every boundary  
 2. Zero-trust handoffs — prior layers are never assumed correct  
 3. Active bias and narrative detection as first-class components  
-4. Explicit self-improvement loops  
+4. Explicit self-improvement loops (pipelines + SESP)  
 5. Physical and mathematical consistency as constraints  
-6. Documentation written to be executable  
+6. Real telemetry labeled honestly (`real` / `proxy` / `synthetic`)  
+7. Documentation written to be executable  
 
 ---
 
-## Quick start (pipelines)
+## Quick starts
+
+### Pipelines
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-
-# illustrative risk model
 python pipelines/python/predict_mortgage_default.py --scenario base --serious
-
-# recursive learning status / update
 python pipelines/python/recursive_learner.py status
-python pipelines/python/recursive_learner.py log \
-  --period Q2_2026 --predicted 5.1 --actual 4.8 \
-  --unemp 4.3 --mort_rate 6.7 --hpa_yoy 3.8
-python pipelines/python/recursive_learner.py update --method re_fit
+```
 
-# compact ingestion summary (CSV/Excel/Parquet)
-python pipelines/python/data_ingestion_optimizer.py path/to/data.csv
+### Telemetry swarm
+
+```bash
+cd swarms/telemetry && pip install -r requirements.txt
+python run.py
+python -m yavapai_swarm collect-real --window 6h --json -y
+```
+
+### SHADOW agent
+
+```bash
+cd agents/shadow && pip install -r requirements.txt
+python run.py activate --max-turns 5 --out report.json -y
+```
+
+### Glass X
+
+```bash
+cd tools/glass-x && pip install -r requirements.txt
+python run.py
 ```
 
 ---

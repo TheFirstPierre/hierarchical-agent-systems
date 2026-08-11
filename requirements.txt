@@ -1,3 +1,7 @@
+# Core quantitative pipelines
 numpy>=1.26
 pandas>=2.0
 pyarrow>=14.0; python_version >= "3.10"
+
+# Telemetry swarm / shadow (optional install: pip install -r swarms/telemetry/requirements.txt)
+# pydantic, typer, rich, httpx, fastapi, etc. — see package requirements
