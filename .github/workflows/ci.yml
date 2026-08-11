@@ -1,0 +1,46 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile packages
+        run: |
+          set -euo pipefail
+          python -m compileall -q \
+            swarms/telemetry/yavapai_swarm \
+            agents/shadow/shadow \
+            protocols/sesp \
+            extractors/echo \
+            pipelines/python \
+            tools/glass-x/app
+          echo "compileall: ok"
+
+      - name: Validate handoff schema (stdlib)
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          schema = json.loads(Path("schemas/handoff.schema.json").read_text())
+          assert schema.get("title") == "ZeroTrustHandoffPackage"
+          required = set(schema.get("required", []))
+          for key in ("payload", "provenance", "confidence", "dissent", "sources", "verification_hooks"):
+              assert key in required, key
+          print("handoff.schema.json: ok")
+          PY
+
+      - name: Smoke-run illustrative pipeline
+        run: |
+          python pipelines/python/predict_mortgage_default.py --scenario base --json
