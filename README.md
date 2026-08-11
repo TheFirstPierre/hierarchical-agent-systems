@@ -96,4 +96,19 @@ python run.py
 
 ---
 
+---
+
+## Examples
+
+Sanitized sample outputs live in [`examples/`](examples/):
+
+- Quantitative stress prediction JSON
+- Recursive learner status shape
+- Synthetic coupled-anomaly telemetry report
+- Zero-trust handoff package (schema-aligned)
+
+See [`examples/README.md`](examples/README.md) for regeneration commands.
+
+CI runs `python -m compileall` over packages and smokes the illustrative pipeline on every push to `main`.
+
 Work is inspectable and intended to be extended.

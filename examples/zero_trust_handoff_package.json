@@ -1,0 +1,48 @@
+{
+  "payload": {
+    "question": "Does coupled grid/emergency activity warrant elevated watch?",
+    "score": 0.72,
+    "horizon": "6h"
+  },
+  "provenance": {
+    "layer": 1,
+    "agent_id": "TESSA-grid-cluster",
+    "cycle_id": "example-cycle-001",
+    "timestamp": "2026-08-11T00:00:00Z",
+    "tools": ["scenario_engine"],
+    "protocol_version": "1.0"
+  },
+  "confidence": {
+    "score": 6.5,
+    "interval": [0.55, 0.82],
+    "known_unknowns": [
+      "No live EIA key in example path",
+      "Emergency channel is synthetic in this sample"
+    ],
+    "sensitivity": [
+      "Threshold for grid delta_sigma",
+      "Window length for coincidence"
+    ]
+  },
+  "dissent": {
+    "internal": [
+      "One cluster argued stress is seasonal load, not anomaly"
+    ],
+    "outliers": [
+      "Low-confidence VECTOR cluster saw no socio-economic mirror"
+    ],
+    "contradictions": []
+  },
+  "sources": {
+    "supporting": [
+      {"id": "scenario:grid_mining_emergency", "tier": "C", "notes": "synthetic demo"}
+    ],
+    "discounted": [
+      {"id": "single-tweet-rumor", "reason": "unverified social only"}
+    ]
+  },
+  "verification_hooks": [
+    "Re-run with real EIA AZPS load if key present",
+    "Test sensitivity to coincidence window 3h vs 6h"
+  ]
+}

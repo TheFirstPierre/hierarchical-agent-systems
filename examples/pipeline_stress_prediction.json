@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-08-10 22:36:38",
+  "scenario": "stress",
+  "inputs": {
+    "unemployment_rate_pct": 5.5,
+    "30yr_mortgage_rate_pct": 7.5,
+    "hpa_yoy_pct": 0.5
+  },
+  "predictions": {
+    "total_delinq_30plus_pct": 6.42,
+    "serious_delinq_90plus_est_pct": 3.39
+  },
+  "disclaimer": "EDUCATIONAL/ILLUSTRATIVE ONLY. Not a substitute for official MBA or ICE data."
+}

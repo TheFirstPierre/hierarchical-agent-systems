@@ -1,0 +1,19 @@
+{
+  "last_updated": "2026-06-19T00:26:47.572570",
+  "total_logged_outcomes": 2,
+  "current_mae": 0.345,
+  "improvement_vs_base": null,
+  "learned_coefficients": {
+    "intercept": 0.8323,
+    "beta_unemp": -0.8275,
+    "beta_mort_rate": 1.4053,
+    "beta_hpa": -0.5123
+  },
+  "base_coefficients": {
+    "intercept": 1.8,
+    "beta_unemp": 0.55,
+    "beta_mort_rate": 0.22,
+    "beta_hpa": -0.12
+  },
+  "recent_notes": []
+}

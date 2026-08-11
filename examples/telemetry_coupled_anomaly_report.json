@@ -1,0 +1,59 @@
+{
+  "schema_version": "5.0",
+  "activation": "TELEMETRY_SWARM_V5",
+  "generated_at": "2026-08-11T05:36:38.729425+00:00",
+  "mode": "EXAMPLE",
+  "window": {
+    "spec": "6h",
+    "note": "illustrative sample \u2014 not a live collect"
+  },
+  "summary": {
+    "agents": [
+      "ECHO",
+      "TESSA",
+      "CYBER",
+      "VECTOR"
+    ],
+    "coupled_anomaly_count": 1,
+    "labeling": "All points in this example are synthetic for documentation."
+  },
+  "coupled_anomalies": [
+    {
+      "coupling_id": "grid-emergency-coincident-001",
+      "involved_clusters": [
+        "TESSA",
+        "CYBER"
+      ],
+      "signals": [
+        4,
+        9
+      ],
+      "severity": 0.72,
+      "first_seen": "2026-08-11T05:36:38.729425+00:00",
+      "last_seen": "2026-08-11T05:36:38.729425+00:00",
+      "hypothesis": "Grid load proxy stress co-occurs with elevated emergency-channel activity.",
+      "evidence": {
+        "signal_4": {
+          "source": "synthetic",
+          "delta_sigma": 2.4
+        },
+        "signal_9": {
+          "source": "synthetic",
+          "delta_sigma": 1.9
+        }
+      },
+      "cross_check": "grid_spike_mirrored_by_emergency_activity"
+    }
+  ],
+  "cross_checks_performed": [
+    "04_grid_spike_vs_09_emergency",
+    "11_fire_risk_vs_03_rf_link"
+  ],
+  "data_sources": {
+    "real": [],
+    "proxy": [],
+    "synthetic": [
+      "scenario:grid_mining_emergency"
+    ]
+  }
+}
