@@ -1,0 +1,9 @@
+# Tunable thresholds for Yavapai Swarm v5
+window_minutes: 360
+coupling_severity_threshold: 0.65
+coincident_window_minutes: 45
+
+# Example per-signal overrides (future)
+# signals:
+#   4:
+#     anomaly_threshold: 2.4

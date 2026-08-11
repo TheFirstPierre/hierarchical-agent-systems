@@ -16,3 +16,13 @@ pipelines/state/learned_model_state.json
 .env
 .env.*
 !.env.example
+*.db
+data/*.json
+!data/.gitkeep
+logs/
+memory/*.json
+memory/*.jsonl
+logs/*.jsonl
+PUBLISH.sh
+PUSH_SURFACE.sh
+.push_surface*

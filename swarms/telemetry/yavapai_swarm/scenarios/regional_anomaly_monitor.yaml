@@ -1,0 +1,38 @@
+# SHADOW Agent — Regional multi-domain anomaly mission profile
+mission_id: shadow-regional-anomaly-monitor-2026
+agent: SHADOW
+activation: TELEMETRY_SWARM_V5_SHADOW
+
+seeds:
+  - "Sedona Arizona military activity"
+  - "KSEZ Black Hawk overflight May 2026"
+  - "Sedona anomaly military sensor correlation"
+  - "Yavapai County MTR IR-112 Sedona"
+  - "Luke AFB low-level training routes northern Arizona"
+  - "Secret Mountain Wilderness military overflights"
+  - "PURSUE anomaly Release CENTCOM orbs military"
+
+token_budget:
+  max_tokens: 0
+  stop_ratio: 0.00
+  briefing_reserve: 600
+  max_turns: 0
+
+discovery_thresholds:
+  novel_term_score: 4.0
+  novel_term_count_at_3: 3
+  correlation_score: 0.72
+  adsb_elevated_count: 8
+
+adsb:
+  bbox_name: KSEZ
+  lamin: 34.70
+  lomin: -112.00
+  lamax: 35.00
+  lomax: -111.60
+  baseline_aircraft: 4
+
+stop_conditions:
+  - substantial_discovery
+  - token_limit_approaching
+  - max_turns_reached

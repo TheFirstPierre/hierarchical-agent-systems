@@ -1,0 +1,5 @@
+# Clean baseline — minimal anomalies, no coupled events
+name: baseline_nominal
+description: Normal operations across all 13 signals
+duration_minutes: 360
+events: []

@@ -1,0 +1,15 @@
+# Scenario: High fire risk (low NDVI) + RF link degradation (triggers 11_vs_03)
+name: fire_risk_rf_degrade
+description: VECTOR + ECHO coupling — sustained vegetation dryness followed by microwave fade
+duration_minutes: 240
+events:
+  - offset_minutes: 30
+    signal: 11
+    action: drift_down
+    magnitude: 0.31
+    duration_minutes: 180
+  - offset_minutes: 95
+    signal: 3
+    action: degrade
+    magnitude: 1.9
+    duration_minutes: 85

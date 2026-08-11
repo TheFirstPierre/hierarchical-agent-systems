@@ -1,0 +1,20 @@
+# Scenario: Grid spike + mining surge + dispatch volume (triggers 04_vs_12_09)
+name: grid_mining_emergency
+description: Coordinated deviation across TESSA and VECTOR (and secondary CYBER)
+duration_minutes: 180
+events:
+  - offset_minutes: 45
+    signal: 4
+    action: spike
+    magnitude: 2.9
+    duration_minutes: 55
+  - offset_minutes: 52
+    signal: 12
+    action: surge
+    magnitude: 2.6
+    duration_minutes: 70
+  - offset_minutes: 61
+    signal: 9
+    action: spike
+    magnitude: 2.1
+    duration_minutes: 40
