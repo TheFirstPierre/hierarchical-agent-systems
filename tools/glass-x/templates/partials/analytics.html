@@ -1,0 +1,50 @@
+<div class="max-w-5xl">
+    <h2 class="font-display text-3xl tracking-tighter mb-2">Analytics &amp; Timing</h2>
+    <p class="text-zinc-400 mb-8">Your personal performance data + ideal composition patterns.</p>
+
+    {% if not x_status.connected %}
+    <div class="glass border border-amber-500/20 bg-amber-500/5 rounded-3xl p-8">
+        <div class="flex gap-4">
+            <div class="text-amber-400 mt-1"><i class="fa-solid fa-link text-xl"></i></div>
+            <div class="flex-1">
+                <div class="font-semibold text-amber-300">Connect your X account to unlock real analytics</div>
+                <div class="text-sm text-amber-400/90 mt-2 max-w-md">
+                    Once connected, Glass X will analyze your historical posts to show:
+                    <ul class="list-disc ml-5 mt-2 space-y-1 text-xs">
+                        <li>Best hours and days of the week for *your* audience</li>
+                        <li>Which content formats actually perform for you</li>
+                        <li>Personalized virality adjustments (the matrix learns from you)</li>
+                    </ul>
+                </div>
+                <a href="/settings" 
+                   hx-get="/settings" hx-target="#main-content"
+                   class="inline-block mt-4 text-sm px-5 py-2 rounded-2xl border border-amber-400/40 hover:bg-amber-400/10 transition-colors">
+                    Go to Settings → Connect X
+                </a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass border border-white/10 rounded-3xl p-6">
+            <div class="text-xs text-zinc-500">BEST DAY</div>
+            <div class="text-3xl mt-2 font-semibold">Tuesday</div>
+            <div class="text-xs text-emerald-400 mt-1">+38% avg engagement</div>
+        </div>
+        <div class="glass border border-white/10 rounded-3xl p-6">
+            <div class="text-xs text-zinc-500">BEST TIME WINDOW</div>
+            <div class="text-3xl mt-2 font-semibold">9:00 – 11:00</div>
+            <div class="text-xs text-emerald-400 mt-1">Your local time</div>
+        </div>
+        <div class="glass border border-white/10 rounded-3xl p-6">
+            <div class="text-xs text-zinc-500">TOP FORMAT</div>
+            <div class="text-3xl mt-2 font-semibold">Single post + image</div>
+            <div class="text-xs text-emerald-400 mt-1">2.4× more reposts than threads</div>
+        </div>
+    </div>
+
+    <div class="mt-8 text-xs text-zinc-500 px-1">
+        Real personalized data will appear here after you connect keys and we pull your history.
+    </div>
+    {% endif %}
+</div>

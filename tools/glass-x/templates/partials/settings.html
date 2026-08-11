@@ -1,0 +1,123 @@
+<div class="max-w-2xl">
+    <h2 class="font-display text-3xl tracking-tighter mb-2">Settings</h2>
+    <p class="text-zinc-400 mb-8">
+        {% if is_hosted %}
+        This instance is running in the cloud. Keys are managed via your hosting platform.
+        {% else %}
+        Local mode. Keys are stored on this machine only.
+        {% endif %}
+    </p>
+
+    <!-- X Connection Status -->
+    <div class="glass border border-white/10 rounded-3xl p-8 mb-8">
+        <div class="font-semibold mb-4 flex items-center gap-2">
+            <i class="fa-brands fa-x-twitter"></i>
+            <span>X API Connection</span>
+        </div>
+
+        {% if x_status.connected %}
+        <div class="flex items-center gap-3 text-emerald-400">
+            <i class="fa-solid fa-check-circle"></i>
+            <span>Connected as <span class="font-medium">@{{ x_status.username }}</span> ({{ x_status.followers }} followers)</span>
+        </div>
+        {% else %}
+        <div class="text-amber-400 text-sm mb-6">
+            {{ x_status.message or "No valid API keys found." }}
+        </div>
+
+        {% if is_hosted %}
+        <!-- Hosted mode: No key form, just instructions -->
+        <div class="bg-zinc-900 border border-white/10 rounded-2xl p-6 text-sm">
+            <div class="font-medium text-white mb-3">Set environment variables on your hosting platform</div>
+            <div class="text-zinc-400 mb-4">
+                In Render (or Railway/Fly/etc.) dashboard, add these four secrets under Environment Variables:
+            </div>
+            <div class="font-mono text-xs bg-black p-3 rounded-xl text-emerald-300 space-y-1">
+                X_API_KEY<br>
+                X_API_SECRET<br>
+                X_ACCESS_TOKEN<br>
+                X_ACCESS_SECRET
+            </div>
+            <div class="text-xs text-zinc-500 mt-4">
+                After adding them, redeploy the service. Then click "Test Current Keys" below.
+            </div>
+        </div>
+
+        <div class="pt-4">
+            <button type="button"
+                    hx-post="/api/test-connection"
+                    hx-target="#key-result"
+                    class="px-5 py-2.5 rounded-2xl border border-white/15 text-sm">
+                Test Current Keys
+            </button>
+        </div>
+
+        {% else %}
+        <!-- Local mode: show the form -->
+        <form hx-post="/api/settings/keys" 
+              hx-target="#key-result"
+              class="space-y-4">
+            <div class="grid grid-cols-1 gap-4">
+                <div>
+                    <label class="text-xs text-zinc-400 block mb-1.5">API Key (Consumer Key)</label>
+                    <input type="text" name="api_key" class="w-full bg-zinc-900 border border-white/10 rounded-2xl px-4 py-2.5 text-sm" placeholder="Your API Key">
+                </div>
+                <div>
+                    <label class="text-xs text-zinc-400 block mb-1.5">API Secret (Consumer Secret)</label>
+                    <input type="text" name="api_secret" class="w-full bg-zinc-900 border border-white/10 rounded-2xl px-4 py-2.5 text-sm" placeholder="Your API Secret">
+                </div>
+                <div>
+                    <label class="text-xs text-zinc-400 block mb-1.5">Access Token</label>
+                    <input type="text" name="access_token" class="w-full bg-zinc-900 border border-white/10 rounded-2xl px-4 py-2.5 text-sm" placeholder="Access Token">
+                </div>
+                <div>
+                    <label class="text-xs text-zinc-400 block mb-1.5">Access Token Secret</label>
+                    <input type="text" name="access_secret" class="w-full bg-zinc-900 border border-white/10 rounded-2xl px-4 py-2.5 text-sm" placeholder="Access Token Secret">
+                </div>
+            </div>
+
+            <div class="pt-2 flex gap-3">
+                <button type="submit" 
+                        class="px-6 py-2.5 rounded-2xl bg-white text-black text-sm font-semibold">
+                    Save Keys &amp; Test
+                </button>
+                
+                <button type="button"
+                        hx-post="/api/test-connection"
+                        hx-target="#key-result"
+                        class="px-5 py-2.5 rounded-2xl border border-white/15 text-sm">
+                    Test Current Keys
+                </button>
+            </div>
+        </form>
+        {% endif %}
+        {% endif %}
+
+        <div id="key-result" class="mt-4 text-sm"></div>
+    </div>
+
+    <!-- Onboarding / Deployment help -->
+    <div class="border border-white/10 rounded-3xl p-8 text-sm">
+        {% if is_hosted %}
+        <div class="font-semibold mb-3">Deployed version notes</div>
+        <div class="text-zinc-400 space-y-3">
+            <p>This is a cloud instance of Project Glass X.</p>
+            <p>The background scheduler runs while the service is awake. For the most reliable posting on free tiers, set up a free external cron (cron-job.org or similar) that hits:</p>
+            <div class="font-mono text-xs bg-black p-2 rounded">POST /api/trigger-posting</div>
+            <p class="text-xs">This wakes the app and forces it to check for posts due right now.</p>
+        </div>
+        {% else %}
+        <div class="font-semibold mb-3">How to get your keys (you currently have none)</div>
+        <ol class="list-decimal ml-5 space-y-3 text-zinc-400 text-sm">
+            <li>Go to <a href="https://developer.x.com" target="_blank" class="text-white underline">developer.x.com</a> and sign in with your X account.</li>
+            <li>Create a new Project → App (use the "Free" tier to start).</li>
+            <li>In App settings, enable <strong>OAuth 1.0a</strong> and generate the 4 keys.</li>
+            <li>Under "User authentication settings", set the permissions to <strong>Read and Write</strong>.</li>
+            <li>Copy the four values into the form above (local) or set them as environment variables (cloud).</li>
+        </ol>
+        <div class="mt-6 text-xs text-zinc-500">
+            Want this running 24/7 with almost zero maintenance? Deploy it to Render or Railway using the instructions in the README.
+        </div>
+        {% endif %}
+    </div>
+</div>

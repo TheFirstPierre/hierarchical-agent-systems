@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Glass X — Local X Co-Pilot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --glass: rgba(255,255,255,0.06);
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+        }
+
+        .nav-active {
+            background-color: #111;
+            color: white;
+            border-radius: 8px;
+        }
+
+        .virality-bar {
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .metric-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-1px);
+        }
+
+        .x-post {
+            font-size: 15px;
+            line-height: 1.45;
+        }
+
+        .section-header {
+            font-size: 13px;
+            letter-spacing: -.5px;
+            font-weight: 600;
+            color: #666;
+        }
+
+        .score-a { color: #22c55e; }
+        .score-b { color: #eab308; }
+        .score-c { color: #f97316; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-200">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-64 border-r border-white/10 flex flex-col">
+            <div class="p-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-2xl bg-white flex items-center justify-center">
+                        <span class="text-zinc-950 font-bold text-2xl tracking-tighter">G</span>
+                    </div>
+                    <div>
+                        <div class="font-display text-2xl tracking-tighter">Glass X</div>
+                        <div class="text-[10px] text-zinc-500 -mt-1">PROJECT</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-3 space-y-1">
+                <a href="/" 
+                   hx-get="/compose" 
+                   hx-target="#main-content"
+                   hx-push-url="/"
+                   class="flex items-center gap-3 px-4 py-3 text-sm rounded-2xl hover:bg-white/5 transition-colors {% if active_tab == 'compose' %}nav-active{% endif %}">
+                    <i class="fa-solid fa-pen w-4"></i>
+                    <span>Compose</span>
+                </a>
+                
+                <a href="/queue" 
+                   hx-get="/queue" 
+                   hx-target="#main-content"
+                   hx-push-url="/queue"
+                   class="flex items-center gap-3 px-4 py-3 text-sm rounded-2xl hover:bg-white/5 transition-colors">
+                    <i class="fa-solid fa-clock w-4"></i>
+                    <span>Queue</span>
+                </a>
+                
+                <a href="/analytics" 
+                   hx-get="/analytics" 
+                   hx-target="#main-content"
+                   hx-push-url="/analytics"
+                   class="flex items-center gap-3 px-4 py-3 text-sm rounded-2xl hover:bg-white/5 transition-colors">
+                    <i class="fa-solid fa-chart-line w-4"></i>
+                    <span>Analytics</span>
+                </a>
+                
+                <a href="/settings" 
+                   hx-get="/settings" 
+                   hx-target="#main-content"
+                   hx-push-url="/settings"
+                   class="flex items-center gap-3 px-4 py-3 text-sm rounded-2xl hover:bg-white/5 transition-colors">
+                    <i class="fa-solid fa-cog w-4"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+
+            <div class="mt-auto p-6 border-t border-white/10">
+                <div class="text-xs text-zinc-500 space-y-1">
+                    <div>Local only • No cloud</div>
+                    <div class="font-mono text-[10px]">v0.1 • Python 3.13</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top bar -->
+            <div class="h-14 border-b border-white/10 flex items-center justify-between px-6">
+                <div class="flex items-center gap-4">
+                    <div class="text-sm text-zinc-400">Your Mac • Local</div>
+                    
+                    {% if x_status.connected %}
+                    <div class="flex items-center gap-2 text-xs px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400">
+                        <i class="fa-solid fa-check"></i>
+                        <span>@{{ x_status.username }}</span>
+                    </div>
+                    {% else %}
+                    <div class="flex items-center gap-2 text-xs px-3 py-1 rounded-full bg-amber-500/10 text-amber-400">
+                        <i class="fa-solid fa-exclamation-triangle"></i>
+                        <span>Not connected to X</span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="flex items-center gap-3 text-xs">
+                    <div class="px-2.5 py-1 rounded-lg bg-white/5 font-mono text-zinc-400">
+                        {{ "now" | default("localhost:8000") }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Content -->
+            <div id="main-content" class="flex-1 overflow-auto p-8">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind script
+        function initTailwind() {
+            document.documentElement.style.setProperty('--accent', '#3b82f6');
+        }
+        window.onload = initTailwind;
+        
+        // HTMX logging (useful during development)
+        document.body.addEventListener('htmx:responseError', function(evt) {
+            console.error('HTMX error', evt);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# Project Glass X - Local X automation + virality tool
+# Pure Python local web app
+
+fastapi==0.115.*
+uvicorn[standard]==0.30.*
+jinja2==3.1.*
+python-multipart==0.0.*
+python-dotenv==1.0.*
+httpx==0.27.*
+authlib==1.3.*
+apscheduler==3.10.*
+pydantic==2.9.*
+httpx==0.27.*
+python-dateutil==2.9.*

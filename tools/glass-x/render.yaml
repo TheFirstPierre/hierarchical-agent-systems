@@ -1,0 +1,25 @@
+# Render Blueprint for Project Glass X
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: glass-x
+    env: python
+    plan: starter  # Change to 'free' or 'starter' depending on your Render plan
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: HOSTED_MODE
+        value: "true"
+      - key: PYTHON_VERSION
+        value: "3.13"
+    # Important: Set your X API keys in the Render dashboard under Environment
+    # Do NOT put real keys here in the blueprint file.
+    # X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_SECRET
+
+    # Optional but recommended for better reliability on low tiers:
+    # healthCheckPath: /health
+
+    # For persistent scheduling on free/starter tiers, set up an external cron
+    # that hits https://your-app.onrender.com/api/trigger-posting every 10-15 minutes.

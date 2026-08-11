@@ -1,0 +1,37 @@
+<div class="max-w-4xl">
+    <h2 class="font-display text-3xl tracking-tighter mb-2">Upcoming Queue</h2>
+    <p class="text-zinc-400 mb-8">Posts scheduled to go out automatically. The background worker checks every ~45 seconds.</p>
+
+    {% if upcoming %}
+    <div class="space-y-3">
+        {% for post in upcoming %}
+        <div class="glass border border-white/10 rounded-3xl p-5 flex gap-6">
+            <div class="w-20 text-xs tabular-nums text-zinc-400 pt-1">
+                {{ post.scheduled_at[:16].replace('T', ' ') }}
+            </div>
+            <div class="flex-1 min-w-0">
+                <div class="x-post text-[15px] leading-relaxed text-zinc-200">
+                    {% set contents = post.content_json | fromjson if post.content_json else [] %}
+                    {{ contents[0].text if contents else post.content_json }}
+                </div>
+                
+                <div class="flex items-center gap-4 mt-4 text-xs">
+                    {% if post.virality_score %}
+                    <div class="px-3 py-px rounded-full bg-white/5 text-emerald-400 font-medium">
+                        {{ post.virality_score }} {{ post.virality_grade }}
+                    </div>
+                    {% endif %}
+                    <div class="text-zinc-500">pending</div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="glass border border-white/10 rounded-3xl p-12 text-center">
+        <i class="fa-solid fa-inbox text-4xl text-white/30 mb-4"></i>
+        <div class="text-lg text-white/60">Queue is empty</div>
+        <div class="text-sm text-white/40 mt-1">Schedule posts from the Compose tab</div>
+    </div>
+    {% endif %}
+</div>
