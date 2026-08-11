@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SESP Agent Proposal Schema",
+  "description": "Structured format for any swarm agent to propose self-evolutions to data discovery, memory, or technical security protocols. Must be reviewed before application.",
+  "type": "object",
+  "required": ["proposal_id", "proposing_agent", "timestamp", "change_type", "rationale", "expected_impact", "patch_or_code", "tests", "risk_assessment"],
+  "properties": {
+    "proposal_id": {
+      "type": "string",
+      "description": "Unique ID (e.g., SESP-2026-05-28-001)"
+    },
+    "proposing_agent": {
+      "type": "string",
+      "enum": ["ALPHA", "BRAVO", "CHARLIE", "DELTA", "META", "USER"]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "change_type": {
+      "type": "string",
+      "enum": ["NEW_DISCOVERY_TOOL", "NEW_MEMORY_STRATEGY", "KEYWORD_EXPANDER_HEURISTIC", "SUMMARIZATION_IMPROVEMENT", "STORAGE_OPTIMIZATION", "TECHNICAL_SECURITY_IMPROVEMENT", "OTHER"]
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 50
+    },
+    "expected_impact": {
+      "type": "object",
+      "properties": {
+        "novel_data_gain": {"type": "string"},
+        "technical_security_improvement": {
+          "type": "string",
+          "description": "Improvements to protection of location, IP address, device/Cloudflare identifiers, or local hard drive data"
+        },
+        "token_savings_estimate": {"type": "string"},
+        "metrics": {"type": "object"}
+      }
+    },
+    "patch_or_code": {
+      "type": "string",
+      "description": "Unified diff or full Python code snippet to apply"
+    },
+    "tests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of test cases or validation steps"
+    },
+    "risk_assessment": {
+      "type": "object",
+      "properties": {
+        "data_leakage_risk": {"type": "string", "enum": ["LOW", "MEDIUM", "HIGH"]},
+        "location_or_identifier_exposure_risk": {"type": "string", "description": "Risk of exposing location, IP, or device identifiers"},
+        "reversibility": {"type": "boolean"},
+        "mitigations": {"type": "array", "items": {"type": "string"}}
+      },
+      "required": ["data_leakage_risk", "location_or_identifier_exposure_risk", "reversibility"]
+    },
+
+    "dependencies": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Other proposals or existing modules this depends on"
+    }
+  }
+}
