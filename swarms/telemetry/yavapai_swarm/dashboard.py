@@ -31,6 +31,7 @@ async def index(request: Request):
     context = {
         "request": request,
         "title": "Yavapai Swarm v5 — Real Data Mode",
+        "report": report,
         "coupled_anomalies": report_dict.get("coupled_anomalies", []),
         "agents": report_dict.get("agents", {}),
         "summary": report_dict.get("summary", {}),
